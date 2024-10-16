@@ -1628,6 +1628,7 @@ function getBadge(passed, failed, skipped) {
 function getTestRunsReport(testRuns, options) {
     const sections = [];
     if (testRuns.length > 1 || options.onlySummary) {
+        core.info('DOWEGOINHERE');
         const tableData = testRuns.map((tr, runIndex) => {
             const time = (0, markdown_utils_1.formatTime)(tr.time);
             const name = tr.path;
@@ -1638,6 +1639,7 @@ function getTestRunsReport(testRuns, options) {
             const skipped = tr.skipped > 0 ? `${tr.skipped}${markdown_utils_1.Icon.skip}` : '';
             return [nameLink, passed, failed, skipped, time];
         });
+        core.info('hello!!!');
         const resultsTable = (0, markdown_utils_1.table)(['Report', 'Passed', 'Failed', 'Skipped', 'Time'], [markdown_utils_1.Align.Left, markdown_utils_1.Align.Right, markdown_utils_1.Align.Right, markdown_utils_1.Align.Right, markdown_utils_1.Align.Right], ...tableData);
         sections.push(resultsTable);
     }
@@ -1648,6 +1650,7 @@ function getTestRunsReport(testRuns, options) {
     return sections;
 }
 function getSuitesReport(tr, runIndex, options) {
+    core.info('WEHROEHAEROIH');
     const sections = [];
     const trSlug = makeRunSlug(runIndex);
     const nameLink = `<a id="${trSlug.id}" href="${options.baseUrl + trSlug.link}">${tr.path}</a>`;
@@ -1660,6 +1663,7 @@ function getSuitesReport(tr, runIndex, options) {
     sections.push(headingLine2);
     const suites = options.listSuites === 'failed' ? tr.failedSuites : tr.suites;
     if (suites.length > 0) {
+        core.info(`suite length ${suites.length}`);
         const suitesTable = (0, markdown_utils_1.table)(['Test suite', 'Passed', 'Failed', 'Skipped', 'Time'], [markdown_utils_1.Align.Left, markdown_utils_1.Align.Right, markdown_utils_1.Align.Right, markdown_utils_1.Align.Right, markdown_utils_1.Align.Right], ...suites.map((s, suiteIndex) => {
             const tsTime = (0, markdown_utils_1.formatTime)(s.time);
             const tsName = s.name;
@@ -1672,8 +1676,10 @@ function getSuitesReport(tr, runIndex, options) {
             return [tsNameLink, passed, failed, skipped, tsTime];
         }));
         sections.push(suitesTable);
+        core.info(suitesTable);
     }
     if (options.listTests !== 'none') {
+        // test reports here is the lower list of tests listed
         const tests = suites.map((ts, suiteIndex) => getTestsReport(ts, runIndex, suiteIndex, options)).flat();
         if (tests.length > 1) {
             sections.push(...tests);

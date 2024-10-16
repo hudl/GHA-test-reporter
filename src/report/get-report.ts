@@ -136,6 +136,7 @@ function getTestRunsReport(testRuns: TestRunResult[], options: ReportOptions): s
   const sections: string[] = []
 
   if (testRuns.length > 1 || options.onlySummary) {
+    core.info('DOWEGOINHERE')
     const tableData = testRuns.map((tr, runIndex) => {
       const time = formatTime(tr.time)
       const name = tr.path
@@ -146,7 +147,7 @@ function getTestRunsReport(testRuns: TestRunResult[], options: ReportOptions): s
       const skipped = tr.skipped > 0 ? `${tr.skipped}${Icon.skip}` : ''
       return [nameLink, passed, failed, skipped, time]
     })
-
+    core.info('hello!!!')
     const resultsTable = table(
       ['Report', 'Passed', 'Failed', 'Skipped', 'Time'],
       [Align.Left, Align.Right, Align.Right, Align.Right, Align.Right],
@@ -163,6 +164,7 @@ function getTestRunsReport(testRuns: TestRunResult[], options: ReportOptions): s
 }
 
 function getSuitesReport(tr: TestRunResult, runIndex: number, options: ReportOptions): string[] {
+  core.info('WEHROEHAEROIH')
   const sections: string[] = []
 
   const trSlug = makeRunSlug(runIndex)
@@ -179,6 +181,7 @@ function getSuitesReport(tr: TestRunResult, runIndex: number, options: ReportOpt
 
   const suites = options.listSuites === 'failed' ? tr.failedSuites : tr.suites
   if (suites.length > 0) {
+    core.info(`suite length ${suites.length}`)
     const suitesTable = table(
       ['Test suite', 'Passed', 'Failed', 'Skipped', 'Time'],
       [Align.Left, Align.Right, Align.Right, Align.Right, Align.Right],
@@ -195,9 +198,11 @@ function getSuitesReport(tr: TestRunResult, runIndex: number, options: ReportOpt
       })
     )
     sections.push(suitesTable)
+    core.info(suitesTable)
   }
 
   if (options.listTests !== 'none') {
+    // test reports here is the lower list of tests listed
     const tests = suites.map((ts, suiteIndex) => getTestsReport(ts, runIndex, suiteIndex, options)).flat()
 
     if (tests.length > 1) {
